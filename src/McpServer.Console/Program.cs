@@ -1,14 +1,15 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using ModelContextProtocol.Server;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddMcpServer()
-    .WithStdioServerTransport()
+    .WithHttpTransport(o => o.Stateless = true)
     .WithToolsFromAssembly();
 
-var host = builder.Build();
+var app = builder.Build();
 
-host.Run();
+app.MapMcp();
+
+
+app.Run("http://localhost:3002");

@@ -1,17 +1,14 @@
-using ModelContextProtocol.Server;
-
-namespace McpServer.Console.Tools;
+﻿using ModelContextProtocol.Server;
+using System.ComponentModel;
 
 [McpServerToolType]
 public class StringTools
 {
-    [McpServerTool]
+    [McpServerTool, Description("Reverse a string")]
     public string Reverse(string input)
     {
-        if (string.IsNullOrEmpty(input)) return input;
+        var rvStr = new string(input.Reverse().ToArray());
+        return "reversed string"+rvStr;
 
-        char[] arr = input.ToCharArray();
-        Array.Reverse(arr);
-        return new string(arr);
     }
 }
